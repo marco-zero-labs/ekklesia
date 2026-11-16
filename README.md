@@ -5,6 +5,8 @@ App de gestão de igrejas evangélicas da Marco Zero Labs (nome provisório). Um
 - **Web:** https://marco-zero-labs.github.io/ekklesia/
 - **Design de referência:** [marco-zero-labs/ekklesia-design](https://github.com/marco-zero-labs/ekklesia-design) (33 telas; tokens em `telas/design-system.html`)
 
+<img src="docs/inicio-web.png" alt="Início na web" width="640"> <img src="docs/inicio-celular.png" alt="Início no celular" width="200">
+
 Todos os nomes, telefones e dados são fictícios. O texto do termo de consentimento é exemplo e será revisado por advogado.
 
 ## Rodar
