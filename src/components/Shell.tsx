@@ -36,18 +36,13 @@ const TABS: NavItem[] = [
 export function Shell({ children }: { children: ReactNode }) {
   const { wide } = useLayout();
   useCommandK();
-  if (wide) {
-    return (
-      <View style={{ flex: 1, flexDirection: 'row', backgroundColor: colors.surface }}>
-        <Sidebar />
-        <View style={{ flex: 1, minWidth: 0 }}>{children}</View>
-      </View>
-    );
-  }
+  // a mesma árvore nos dois modos: girar o tablet ou redimensionar a janela não desmonta a tela atual
+  // (nem perde o que estava sendo digitado)
   return (
-    <View style={{ flex: 1, backgroundColor: colors.surface }}>
-      <View style={{ flex: 1 }}>{children}</View>
-      <TabBar />
+    <View style={{ flex: 1, flexDirection: wide ? 'row' : 'column', backgroundColor: colors.surface }}>
+      {wide ? <Sidebar /> : null}
+      <View style={{ flex: 1, minWidth: 0 }}>{children}</View>
+      {wide ? null : <TabBar />}
     </View>
   );
 }

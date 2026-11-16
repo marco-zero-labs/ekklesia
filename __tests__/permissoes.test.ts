@@ -90,6 +90,11 @@ describe('dados de exemplo', () => {
     const noite = db.attendance.find((a) => a.activityId === 's-noite.2026-11-15')!;
     expect(noite.present).toBe(287);
   });
+  test('aniversariantes da semana: Ivone (qua), Hélio (sex), Lívia (dom)', () => {
+    const week = ['11-16', '11-17', '11-18', '11-19', '11-20', '11-21', '11-22'];
+    const names = db.people.filter((p) => p.active && p.birthDate && week.includes(p.birthDate.slice(5))).map((p) => `${p.name} ${p.birthDate!.slice(5)}`);
+    expect(names.sort()).toEqual(['Hélio Ramos 11-20', 'Ivone Pereira 11-18', 'Lívia Souza Andrade 11-22']);
+  });
   test('Maria das Graças: 3 tentativas seguidas sem resposta', () => {
     expect(unansweredStreak(person('v-mariadasgracas').followUp!.contacts)).toBe(3);
   });

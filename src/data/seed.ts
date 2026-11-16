@@ -236,6 +236,7 @@ export function buildSeed(today: Day, now: Date = new Date()): Db {
     { kind: 'membro', active: false, count: 60 },
     { kind: 'congregado', active: true, count: 538 - 24 - people.filter((p) => p.kind !== 'visitante').length - (412 - namedActiveMembers) - 60 },
   ];
+  const thisWeekMD = new Set(Array.from({ length: 7 }, (_, i) => w(i).slice(5)));
   let gid = 0;
   let withoutPhone = 0;
   let absent = 0;
@@ -254,6 +255,9 @@ export function buildSeed(today: Day, now: Date = new Date()): Db {
       const year = 1940 + Math.floor(rand() * 68);
       const month = 1 + Math.floor(rand() * 12);
       const day = 1 + Math.floor(rand() * 28);
+      let birth = `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+      // aniversariantes desta semana são só os do design (Ivone, Hélio e Lívia)
+      if (thisWeekMD.has(birth.slice(5))) birth = `${year}${addDays(`2001${birth.slice(4)}`, 14).slice(4)}`;
       people.push(
         base({
           id,
@@ -262,7 +266,7 @@ export function buildSeed(today: Day, now: Date = new Date()): Db {
           kind: g.kind,
           active: g.active,
           presence,
-          birthDate: `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}`,
+          birthDate: birth,
           memberSince: g.kind === 'membro' ? `${1985 + Math.floor(rand() * 40)}-0${1 + Math.floor(rand() * 9)}-01` : undefined,
           consent: rand() < 0.12 ? { status: 'dado', at: at(s(-14), '10:00'), via: 'link pelo WhatsApp' } : { status: 'pendente', via: 'cadastro anterior ao Ekklesia' },
         }),
