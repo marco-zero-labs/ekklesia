@@ -138,7 +138,7 @@ export function buildSeed(today: Day, now: Date = new Date()): Db {
     { id: 'v-daniela', name: 'Daniela Rocha de Albuquerque', phone: '(81) 98733-1590', stage: 'primeira_visita', resp: A, due: 0, attempts: 0, first: S },
     { id: 'v-pedromariana', name: 'Pedro Henrique e Mariana Costa', stage: 'primeira_visita', resp: null, due: 0, attempts: 0, first: S, consent: 'verbal' },
     { id: 'v-jessica', name: 'Jéssica Karoline Oliveira', stage: 'primeira_visita', resp: A, due: 0, attempts: 0, first: S, consent: 'pendente' },
-    { id: 'v-luana', name: 'Luana Siqueira', phone: '(81) 99318-2046', stage: 'primeira_visita', resp: A, due: 0, attempts: 0, first: S, service: 'culto de domingo de manhã' },
+    { id: 'v-luana', name: 'Luana Siqueira', phone: '(81) 99318-2046', stage: 'primeira_visita', resp: A, due: 0, attempts: 0 , first: S },
     { id: 'v-davi', name: 'Davi Coutinho', stage: 'primeira_visita', resp: null, due: 0, attempts: 0, first: S, consent: 'pendente' },
     { id: 'v-antonio', name: 'Antônio Carlos Bezerra', phone: '(81) 99281-4470', stage: 'retornou', resp: R, due: 1, attempts: 2, first: s(-21), last: { daysAgo: 4, type: 'ligacao', result: 'conversou', by: R } },
     { id: 'v-leticia', name: 'Letícia Fernandes', phone: '(81) 98840-1932', stage: 'primeira_visita', resp: A, due: 1, attempts: 1, first: s(-7), last: { daysAgo: 6, type: 'whatsapp', result: 'nao_atendeu', by: A } },
@@ -357,8 +357,8 @@ export function buildSeed(today: Day, now: Date = new Date()): Db {
   /* ---------- frequência (8 semanas) ---------- */
   const noite = [305, 290, 292, 294, 298, 295, 301, 287];
   const manha = [198, 194, 199, 195, 196, 200, 205, 198];
-  const visN = [3, 5, 4, 3, 4, 3, 4, 6];
-  const visM = [0, 0, 0, 0, 0, 0, 3, 2];
+  const visN = [3, 5, 4, 3, 4, 4, 5, 6];
+  const visM = [0, 0, 0, 0, 0, 0, 3, 0];
   const kidsN = [36, 40, 37, 35, 39, 38, 38, 41];
   const kidsM = [44, 41, 45, 42, 43, 46, 47, 44];
   const recorders = [A, 'p-thiago'];
