@@ -1,9 +1,9 @@
 {
   "expo": {
-    "name": "ekklesia-app",
-    "slug": "ekklesia-app",
+    "name": "Ekklesia",
+    "slug": "ekklesia",
     "version": "1.0.0",
-    "orientation": "portrait",
+    "orientation": "default",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "ios": {
@@ -11,7 +11,7 @@
     },
     "android": {
       "adaptiveIcon": {
-        "backgroundColor": "#E6F4FE",
+        "backgroundColor": "#F5F3EF",
         "foregroundImage": "./assets/android-icon-foreground.png",
         "backgroundImage": "./assets/android-icon-background.png",
         "monochromeImage": "./assets/android-icon-monochrome.png"
@@ -19,7 +19,25 @@
       "predictiveBackGestureEnabled": false
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./assets/favicon.png",
+      "output": "single",
+      "bundler": "metro",
+      "name": "Ekklesia",
+      "shortName": "Ekklesia",
+      "lang": "pt-BR",
+      "themeColor": "#0F4C5C",
+      "backgroundColor": "#FFFFFF"
+    },
+    "plugins": [
+      "expo-router",
+      "expo-status-bar",
+      "expo-font",
+      "expo-sharing"
+    ],
+    "scheme": "ekklesia",
+    "experiments": {
+      "typedRoutes": true,
+      "baseUrl": "/ekklesia"
     }
   }
 }
