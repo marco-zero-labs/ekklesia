@@ -123,7 +123,7 @@ function PessoaView({ p, d }: { p: Person; d: AppData }) {
             {p.ministries.map((m) => {
               const ministry = d.ministries.find((x) => x.id === m.ministryId);
               if (!ministry) return null;
-              return <Row key={m.ministryId} title={ministry.name} subtitle={ministry.leaderId === p.id ? 'Líder' : m.role} onPress={() => router.push(`/ministerios/${ministry.id}`)} />;
+              return <Row key={m.ministryId} title={ministry.name} subtitle={[ministry.leaderId === p.id ? 'Líder' : null, m.role && m.role !== 'Líder' ? m.role : null].filter(Boolean).join(' · ') || undefined} onPress={() => router.push(`/ministerios/${ministry.id}`)} />;
             })}
           </View>
         ) : (

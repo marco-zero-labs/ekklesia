@@ -62,10 +62,11 @@ export function Page({ back, title, subtitle, action, children, maxWidth = layou
               {action && wide ? action : null}
             </View>
           ) : null}
+          {/* no celular, a ação principal fica logo abaixo do título, em largura total */}
+          {action && !wide && !footer ? <View style={{ paddingTop: 8 }}>{action}</View> : null}
         </View>
       ) : null}
       {children}
-      {action && !wide && !footer ? <View style={{ paddingTop: 8 }}>{action}</View> : null}
     </View>
   );
   return (
