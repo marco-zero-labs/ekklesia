@@ -1,3 +1,5 @@
+import { Platform } from 'react-native';
+
 /**
  * Tokens extraídos de telas/design-system.html (Sistema de design · v0.1 · 16 nov 2026).
  * Não altere os valores sem atualizar o design.
@@ -39,10 +41,12 @@ export const floatingShadow = {
   elevation: 3,
 } as const;
 
+/** Na web, a fonte de reserva do design aparece enquanto a IBM Plex Sans carrega. */
+const fallback = Platform.OS === 'web' ? ', "Helvetica Neue", Arial, sans-serif' : '';
 export const fonts = {
-  400: 'IBMPlexSans_400Regular',
-  500: 'IBMPlexSans_500Medium',
-  600: 'IBMPlexSans_600SemiBold',
+  400: `IBMPlexSans_400Regular${fallback}`,
+  500: `IBMPlexSans_500Medium${fallback}`,
+  600: `IBMPlexSans_600SemiBold${fallback}`,
 } as const;
 
 export type Weight = keyof typeof fonts;

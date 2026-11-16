@@ -66,12 +66,15 @@ export class LocalRepository implements Repository {
     return this.loading;
   }
 
-  /** Toda leitura passa aqui: respeita os modos de demonstração (lento / erro). */
+  /**
+   * Toda leitura passa aqui: respeita os modos de demonstração (lento / erro).
+   * Os dados são imutáveis por versão (cada alteração cria uma cópia nova), então a leitura não precisa copiar.
+   */
   private async read<T>(fn: (db: Db) => T): Promise<T> {
     const db = await this.load();
     if (this.demo.slow) await sleep(1500);
     if (this.demo.fail) throw new DataError('Simulação de falha de conexão');
-    return clone(fn(db));
+    return fn(db);
   }
 
   private async persist() {
@@ -100,12 +103,18 @@ export class LocalRepository implements Repository {
    * (restaura o estado anterior). `keepPristine` para ações que não mudam os dados (auditoria).
    */
   private async mutate(fn: (db: Db) => void, audit?: Omit<AuditEntry, 'id' | 'at'>, keepPristine = false): Promise<Undo> {
-    const db = await this.load();
+    const before = await this.load();
     if (this.demo.fail) throw new DataError('Simulação de falha de conexão');
-    const before = clone(db);
+    // copy-on-write: a versão anterior fica intacta (serve para o Desfazer e para as telas compararem)
+    const db = clone(before);
     fn(db);
     if (!keepPristine) db.pristine = false;
-    if (audit) db.audit.unshift({ id: uid('au'), at: now(), ...audit });
+    if (audit) {
+      // sem texto do alvo: usa o nome da pessoa (já com a alteração aplicada)
+      const target = audit.target || (audit.targetId ? db.people.find((p) => p.id === audit.targetId)?.name ?? '' : '');
+      db.audit.unshift({ id: uid('au'), at: now(), ...audit, target });
+    }
+    this.db = db;
     await this.persist();
     return async () => {
       await this.replace(before);
@@ -215,11 +224,9 @@ export class LocalRepository implements Repository {
   }
 
   async updatePerson(id: string, patch: Partial<Person>, actorId: string, action: string) {
-    let name = '';
     const undo = await this.mutate(
       (db) => {
         const p = this.person(db, id);
-        name = patch.name ?? p.name;
         const prevMinistries = p.ministries.map((m) => m.ministryId);
         Object.assign(p, patch, { updatedAt: now(), updatedById: actorId });
         if (patch.ministries) {
@@ -234,17 +241,14 @@ export class LocalRepository implements Repository {
       },
       { actorId, action, target: '', targetId: id },
     );
-    await this.fixAuditTarget(name);
     return undo;
   }
 
   async registerContact(personId: string, input: ContactInput, actorId: string) {
     let stageChanged: Stage | null = null;
-    let name = '';
     const undo = await this.mutate(
       (db) => {
         const p = this.person(db, personId);
-        name = p.name;
         if (!p.followUp) throw new DataError('Esta pessoa não está em acompanhamento');
         const r = applyContact(p.followUp, { id: uid('c'), at: now(), type: input.type, result: input.result, note: input.note?.trim() || undefined, byId: actorId }, input.nextContact);
         p.followUp = r.followUp;
@@ -254,24 +258,14 @@ export class LocalRepository implements Repository {
       },
       { actorId, action: 'Registrou contato', target: '', targetId: personId },
     );
-    await this.fixAuditTarget(name);
     return { stageChanged, undo };
   }
 
-  private async fixAuditTarget(target: string) {
-    const db = await this.load();
-    if (db.audit[0] && !db.audit[0].target) {
-      db.audit[0].target = target;
-      await this.persist();
-    }
-  }
 
   async setStage(personId: string, stage: Stage, actorId: string) {
-    let name = '';
     const undo = await this.mutate(
       (db) => {
         const p = this.person(db, personId);
-        name = p.name;
         if (!p.followUp) throw new DataError('Esta pessoa não está em acompanhamento');
         p.followUp = changeStage(p.followUp, stage, actorId, now());
         if (stage === 'membro') {
@@ -284,49 +278,39 @@ export class LocalRepository implements Repository {
       },
       { actorId, action: `Mudou etapa para ${stageLabel(stage)}`, target: '', targetId: personId },
     );
-    await this.fixAuditTarget(name);
     return undo;
   }
 
   async setResponsible(personId: string, responsibleId: string | null, actorId: string) {
-    let name = '';
     const undo = await this.mutate(
       (db) => {
         const p = this.person(db, personId);
-        name = p.name;
         if (p.followUp) p.followUp.responsibleId = responsibleId;
       },
       { actorId, action: 'Atribuiu responsável', target: '', targetId: personId },
     );
-    await this.fixAuditTarget(name);
     return undo;
   }
 
   async setConsent(personId: string, consent: Consent, actorId: string) {
-    let name = '';
     const undo = await this.mutate(
       (db) => {
         const p = this.person(db, personId);
-        name = p.name;
         p.consent = consent;
       },
       { actorId, action: consent.status === 'dado' ? 'Registrou consentimento' : consent.status === 'recusado' ? 'Registrou recusa de consentimento' : 'Alterou consentimento', target: '', targetId: personId },
     );
-    await this.fixAuditTarget(name);
     return undo;
   }
 
   async requestConsent(personId: string, actorId: string) {
-    let name = '';
     const undo = await this.mutate(
       (db) => {
         const p = this.person(db, personId);
-        name = p.name;
         p.consent = { ...p.consent, requestedAt: now() };
       },
       { actorId, action: 'Pediu consentimento', target: '', targetId: personId },
     );
-    await this.fixAuditTarget(name);
     return undo;
   }
 

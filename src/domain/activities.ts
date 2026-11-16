@@ -84,7 +84,7 @@ export function scheduleStatus(s: Schedule): ScheduleStatus {
 export const seriesOf = (activityId: string) => activityId.replace(/\.\d{4}-\d{2}-\d{2}$/, '');
 
 /** Média das 4 ocorrências anteriores da mesma série (null se não houver). */
-export function priorAverage(records: Attendance[], rec: Attendance, n = 4): number | null {
+export function priorAverage(records: Attendance[], rec: Pick<Attendance, 'activityId' | 'date'>, n = 4): number | null {
   const series = seriesOf(rec.activityId);
   const prior = records
     .filter((r) => r.done && seriesOf(r.activityId) === series && r.date < rec.date)

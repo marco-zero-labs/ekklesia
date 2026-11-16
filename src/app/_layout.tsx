@@ -34,7 +34,8 @@ function useWebGlobalStyles() {
 export default function RootLayout() {
   const [loaded, error] = useFonts({ IBMPlexSans_400Regular, IBMPlexSans_500Medium, IBMPlexSans_600SemiBold });
   useWebGlobalStyles();
-  if (!loaded && !error) return <View style={{ flex: 1, backgroundColor: colors.surface }} />;
+  // no celular espera a fonte; na web mostra já com a fonte de reserva e troca quando carregar
+  if (!loaded && !error && Platform.OS !== 'web') return <View style={{ flex: 1, backgroundColor: colors.surface }} />;
   return (
     <SafeAreaProvider>
       <StatusBar style="dark" />
