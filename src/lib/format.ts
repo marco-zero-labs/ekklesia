@@ -57,10 +57,21 @@ export function parseTimeInput(input: string): string | null {
   return `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}`;
 }
 
-/** Primeiro nome: "Maria das Graças Nascimento Silva" → "Maria das Graças". */
-export function firstName(name: string): string {
+/** Segundos nomes que formam nome composto: "Ana Paula", "Pedro Henrique", "Marcos Antônio". */
+const COMPOUND = new Set(['paula', 'clara', 'eduarda', 'luiza', 'luísa', 'beatriz', 'vitória', 'fernanda', 'júlia', 'helena', 'lúcia', 'cristina', 'pedro', 'henrique', 'carlos', 'antônio', 'gabriel', 'paulo', 'vitor', 'victor', 'eduardo', 'miguel', 'lucas']);
+
+/**
+ * Primeiro nome, como se chama a pessoa numa mensagem:
+ * "Maria das Graças Nascimento Silva" → "Maria das Graças"; "Ana Paula Ribeiro" → "Ana Paula";
+ * "Rafael e Priscila Monteiro" → "Rafael e Priscila".
+ */
+export function firstName(name: string, onlyGiven = false): string {
+  const couple = name.trim().match(/^(.+?)\s+e\s+(.+)$/);
+  if (couple) return `${firstName(couple[1], true)} e ${firstName(couple[2])}`;
   const parts = name.trim().split(/\s+/);
   if (parts.length >= 3 && /^(d[aeo]s?)$/i.test(parts[1])) return parts.slice(0, 3).join(' ');
+  // no 1º nome de um casal ("Pedro Henrique e Mariana Costa") não há sobrenome depois
+  if ((parts.length >= 3 || (onlyGiven && parts.length === 2)) && COMPOUND.has(parts[1].toLowerCase())) return parts.slice(0, 2).join(' ');
   return parts[0] ?? name;
 }
 

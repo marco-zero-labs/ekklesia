@@ -52,5 +52,8 @@ describe('formatação', () => {
   test('primeiro nome', () => {
     expect(firstName('Maria das Graças Nascimento Silva')).toBe('Maria das Graças');
     expect(firstName('Lucas Ferreira')).toBe('Lucas');
+    expect(firstName('Ana Paula Ribeiro')).toBe('Ana Paula');
+    expect(firstName('Rafael e Priscila Monteiro')).toBe('Rafael e Priscila');
+    expect(firstName('Pedro Henrique e Mariana Costa')).toBe('Pedro Henrique e Mariana');
   });
 });

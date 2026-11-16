@@ -5,6 +5,7 @@ import { useEffect } from 'react';
 import { Platform, View } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { FeedbackProvider } from '@/components/Feedback';
+import { DataProvider } from '@/data/DataProvider';
 import { colors } from '@/theme/tokens';
 
 /** Estilos globais da web: foco visível (2px petróleo), sem contorno no mouse, hover suave. */
@@ -37,11 +38,11 @@ export default function RootLayout() {
   return (
     <SafeAreaProvider>
       <StatusBar style="dark" />
-
+      <DataProvider>
         <FeedbackProvider>
           <Stack screenOptions={{ headerShown: false, contentStyle: { backgroundColor: colors.surface } }} />
         </FeedbackProvider>
-
+      </DataProvider>
     </SafeAreaProvider>
   );
 }
