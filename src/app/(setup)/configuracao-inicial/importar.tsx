@@ -92,7 +92,7 @@ export default function Importar() {
             <Button kind="primary" label="Escolher arquivo CSV" onPress={pick} />
             <Button label="Usar planilha de exemplo" onPress={() => load('membros_exemplo.csv', SAMPLE_CSV)} />
           </View>
-          <TextLink small label="Baixar planilha-modelo (.csv)" onPress={() => saveTextFile('planilha-modelo-ekklesia.csv', TEMPLATE_CSV, 'text/csv')} />
+          <TextLink small label="Baixar planilha-modelo (.csv)" onPress={() => saveTextFile('planilha-modelo-limen.csv', TEMPLATE_CSV, 'text/csv')} />
           {error ? <Txt color={colors.error}>{error}</Txt> : null}
         </View>
       ) : (
@@ -111,7 +111,7 @@ export default function Importar() {
                   Coluna na planilha
                 </Txt>
                 <Txt v="label" color={colors.inkHead} style={{ flex: 1 }}>
-                  Campo no Ekklesia
+                  Campo no Limen
                 </Txt>
                 <Txt v="label" color={colors.inkHead} style={{ flex: 1.3 }}>
                   Exemplo da 1ª linha

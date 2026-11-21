@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "Ekklesia",
+    "name": "Limen",
     "slug": "ekklesia",
     "version": "1.0.0",
     "orientation": "default",
@@ -22,8 +22,8 @@
       "favicon": "./assets/favicon.png",
       "output": "single",
       "bundler": "metro",
-      "name": "Ekklesia",
-      "shortName": "Ekklesia",
+      "name": "Limen",
+      "shortName": "Limen",
       "lang": "pt-BR",
       "themeColor": "#0F4C5C",
       "backgroundColor": "#FFFFFF"

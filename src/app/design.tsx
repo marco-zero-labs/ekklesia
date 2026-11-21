@@ -27,7 +27,7 @@ export default function DesignSystem() {
     ['error', colors.error],
   ];
   return (
-    <Page back="/" title="Sistema de design" subtitle="Ekklesia · v0.1">
+    <Page back="/" title="Sistema de design" subtitle="Limen · v0.1">
       <Section title="Cores">
         <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 16 }}>
           {swatches.map(([n, c]) => (

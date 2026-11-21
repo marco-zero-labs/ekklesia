@@ -20,7 +20,7 @@ export function SetupPage({ step, title, subtitle, children, footer }: { step: 1
   return (
     <Page bare maxWidth={720} footer={footer}>
       <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', gap: 12, flexWrap: 'wrap' }}>
-        <Txt w={600}>Ekklesia · Configuração inicial</Txt>
+        <Txt w={600}>Limen · Configuração inicial</Txt>
         <TextLink small label="Sair e continuar depois" onPress={() => router.replace('/')} />
       </View>
       <View style={{ gap: 6 }}>

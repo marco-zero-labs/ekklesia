@@ -14,7 +14,7 @@ type Props = TextProps & {
 };
 
 /**
- * Texto do Ekklesia. Nunca corta com reticências (não use numberOfLines).
+ * Texto do Limen. Nunca corta com reticências (não use numberOfLines).
  * O corpo passa a 16/24 no celular, como no design.
  */
 export function Txt({ v = 'body', w, color, muted, amber, tabular, align, style, ...rest }: Props) {

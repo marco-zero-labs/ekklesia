@@ -1,6 +1,6 @@
-# Ekklesia
+# Limen
 
-App de gestão de igrejas evangélicas da Marco Zero Labs (nome provisório). Um único projeto Expo que roda no celular (Expo Go) e na web.
+Limen (antes Ekklesia, do latim "soleira"): app de gestão de igrejas evangélicas da Marco Zero Labs. Um único projeto Expo que roda no celular (Expo Go) e na web.
 
 - **Web:** https://marco-zero-labs.github.io/ekklesia/
 - **Design de referência:** [marco-zero-labs/ekklesia-design](https://github.com/marco-zero-labs/ekklesia-design) (33 telas; tokens em `telas/design-system.html`)

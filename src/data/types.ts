@@ -61,7 +61,7 @@ export type ConsentStatus = 'dado' | 'pendente' | 'verbal' | 'recusado';
 export interface Consent {
   status: ConsentStatus;
   at?: DateTime;
-  /** "ficha digital", "link pelo WhatsApp", "verbal, coletado por Ana Paula Ribeiro", "cadastro anterior ao Ekklesia" */
+  /** "ficha digital", "link pelo WhatsApp", "verbal, coletado por Ana Paula Ribeiro", "cadastro anterior ao Limen" */
   via?: string;
   requestedAt?: DateTime;
 }

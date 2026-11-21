@@ -84,7 +84,7 @@ function Sidebar() {
       }}
     >
       <View style={{ paddingHorizontal: 12, gap: 4 }}>
-        <Txt v="title">Ekklesia</Txt>
+        <Txt v="title">Limen</Txt>
         <Txt v="small" muted>
           {church.data?.name ?? ' '}
         </Txt>

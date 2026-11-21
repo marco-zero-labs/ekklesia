@@ -73,7 +73,7 @@ export function buildSeed(today: Day, now: Date = new Date()): Db {
     active: true,
     ministries: [],
     presence: sundays8,
-    consent: { status: 'pendente', via: 'cadastro anterior ao Ekklesia' },
+    consent: { status: 'pendente', via: 'cadastro anterior ao Limen' },
     createdAt: at(s(-60), '10:00'),
     updatedAt: at(s(-30), '10:00'),
     updatedById: SEED_IDS.secretaria,
@@ -268,7 +268,7 @@ export function buildSeed(today: Day, now: Date = new Date()): Db {
           presence,
           birthDate: birth,
           memberSince: g.kind === 'membro' ? `${1985 + Math.floor(rand() * 40)}-0${1 + Math.floor(rand() * 9)}-01` : undefined,
-          consent: rand() < 0.12 ? { status: 'dado', at: at(s(-14), '10:00'), via: 'link pelo WhatsApp' } : { status: 'pendente', via: 'cadastro anterior ao Ekklesia' },
+          consent: rand() < 0.12 ? { status: 'dado', at: at(s(-14), '10:00'), via: 'link pelo WhatsApp' } : { status: 'pendente', via: 'cadastro anterior ao Limen' },
         }),
       );
     }
