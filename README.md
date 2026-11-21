@@ -2,7 +2,7 @@
 
 Limen (antes Ekklesia, do latim "soleira"): app de gestão de igrejas evangélicas da Marco Zero Labs. Um único projeto Expo que roda no celular (Expo Go) e na web.
 
-- **Web:** https://marco-zero-labs.github.io/ekklesia/
+- **Web:** https://marco-zero-labs.github.io/limen/
 - **Design de referência:** [marco-zero-labs/ekklesia-design](https://github.com/marco-zero-labs/ekklesia-design) (33 telas; tokens em `telas/design-system.html`)
 
 <img src="docs/inicio-web.png" alt="Início na web" width="640"> <img src="docs/inicio-celular.png" alt="Início no celular" width="200">
@@ -15,7 +15,7 @@ Todos os nomes, telefones e dados são fictícios. O texto do termo de consentim
 npm install
 npx expo start            # abre o QR code para o Expo Go (mesma rede Wi-Fi)
 npx expo start --tunnel   # se o celular não estiver na mesma rede
-npx expo start --web      # web local em http://localhost:8081/ekklesia
+npx expo start --web      # web local em http://localhost:8081/limen
 ```
 
 Na primeira abertura, escolha o perfil em **Entrar como** (Pastor, Secretaria ou Líder). Dá para trocar em **Configurações**.

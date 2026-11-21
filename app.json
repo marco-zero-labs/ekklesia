@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "Limen",
-    "slug": "ekklesia",
+    "slug": "limen",
     "version": "1.0.0",
     "orientation": "default",
     "icon": "./assets/icon.png",
@@ -34,10 +34,10 @@
       "expo-font",
       "expo-sharing"
     ],
-    "scheme": "ekklesia",
+    "scheme": "limen",
     "experiments": {
       "typedRoutes": true,
-      "baseUrl": "/ekklesia"
+      "baseUrl": "/limen"
     }
   }
 }
